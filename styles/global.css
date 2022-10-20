@@ -24,6 +24,8 @@ body {
   min-height: calc(
     100vh - 174px
   ); /* browser height minus header and footer height */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .footer {

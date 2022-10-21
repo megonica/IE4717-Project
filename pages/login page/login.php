@@ -17,8 +17,8 @@
       }
 
       h1{
-        margin-top: 0px;
-        margin-bottom: 18px;
+        margin-top: 10px;
+        margin-bottom: 20px;
       }
 
       label{

@@ -17,8 +17,8 @@
       }
 
       h1{
-        margin-top: 0px;
-        margin-bottom: 18px;
+        margin-top: 10px;
+        margin-bottom: 20px;
       }
 
       label{
@@ -54,7 +54,7 @@
     <div class="content">
       <div class="container">
         <form action="" method="post">
-          <div class="login">
+          <div class="signup">
               <h1>SIGN UP</h1>
               <label for="email">Email</label>
               <input type="text" id="email" name="email">

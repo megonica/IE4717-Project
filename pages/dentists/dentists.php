@@ -94,19 +94,12 @@
         justify-content: center;
       }
 
-      .filter div {
-        margin: 0 10px;
-      }
-
       @media screen and (max-width: 700px) {
         section{
           grid-template-columns: auto auto;
         }
         .filter{
           grid-template-columns: auto;
-        }
-        .filter div {
-          margin: 0 10px 5px 10px;
         }
       }
     </style>
@@ -118,16 +111,30 @@
       }
 
       $records = array();
+      $options = array();
 
-      $query="select * from dentist";
-      $result = $db->query($query);
-      if(!$result) {
-			  echo "Could not get dentists.";
-			  exit;
+      // get all or filtered dentists
+      if(empty($_GET['treatment']) || $_GET['treatment'] === '') $query="select * from dentist";
+      else $query="select * from dentist where specialisation='".$_GET['treatment']."'";
+
+      $records = $db->query($query);
+      if(!$records) {
+        echo "Could not get dentists.";
+        exit;
+      }
+
+      // get all select options
+      $query="select specialisation from dentist";
+      $result_options = $db->query($query);
+      if(!$result_options) {
+        echo "Could not get treatment options.";
+        exit;
       } else {
         // push records to new array to reuse results
-        while($record = $result->fetch_array(MYSQLI_ASSOC)) {
-          $records[]=$record;
+        while($specialisation = $result_options->fetch_array(MYSQLI_ASSOC)) {
+          if(!in_array($specialisation['specialisation'], $options)){
+            $options[] = $specialisation['specialisation'];
+          }
         }
       }
     ?>
@@ -142,30 +149,12 @@
                 <div>
                   <label for="specialisation">Choice of Treatment: </label>
                   <select name="specialisation" id="specialisation">
-                    <option value="">Select...</option>
-                    <?php
-                    // filter out duplicate specialisations
-                    $specialisations_filtered = array();
-                    foreach($records as $record){
-                      if(!in_array($record['specialisation'], $specialisations_filtered)){
-                        $specialisations_filtered[] = $record['specialisation'];
-                      }
-                    } 
-                    foreach($specialisations_filtered as $specialisation){
-                      echo  "<option value='".$specialisation."'>".$specialisation."</option>";
-                    } 
-                    ?>
-                  </select>
-                </div>
-                <div>
-                  <label for="dentist">Choice of Dentist: </label>
-                  <select name="dentist" id="dentist">
-                    <option value="">Select...</option>
-                    <?php
-                    foreach($records as $record){
-                      echo  "<option value='".$record['name']."'>".$record['name']."</option>";
-                    } 
-                    ?>
+                      <option value="">Select...</option>
+                      <?php
+                      foreach($options as $option){
+                        echo  "<option value='".$option."'>".$option."</option>";
+                      } 
+                      ?>
                   </select>
                 </div>
               </div>
@@ -173,7 +162,6 @@
                   <!-- to loop according to number of dentists from db -->
                   <?php
                   foreach($records as $record){
-                    $row = $result->fetch_assoc();
                     echo  "<form action='../appointment/appointment.php' method='POST'>";
                     echo  "<div class='card'>";
                     echo  "<div class='card-content'>";
@@ -193,4 +181,12 @@
     </div>
     <?php include '../../components/footer.php';?>
   </body>
+  <script src="./dentists.js"></script>
+  <?php
+  if(!empty($_GET['treatment'])){
+    echo "<script>";
+    echo "document.getElementById('specialisation').value = '".$_GET['treatment']."'";
+    echo "</script>";
+  }
+  ?>
 </html>

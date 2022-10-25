@@ -104,7 +104,7 @@
 			            $row = $result->fetch_assoc();
                   echo "<div class='card'>";
                   echo "<div class='card-content'>";
-                  echo  "<img src='https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80' alt='profile'>";
+                  echo  "<img src='".$row['profile']."' alt='profile'>";
                   echo  "<h2>".$row['name']."</h2>";
                   echo  "<p>".$row['position']."</p>";
                   echo  "<p>".$row['specialisation']."</p>";

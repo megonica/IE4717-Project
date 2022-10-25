@@ -5,8 +5,8 @@ insert into patient values
 (2, 'somename2@gmail.com', 'somename2', 'somepassword2');
 
 insert into dentist values 
-(1, 'dentist1', 'director', 'cosmetic surgery'),
-(2, 'dentist2', 'senior', 'cavity cleaning');
+(1, 'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80','dentist1', 'director', 'cosmetic surgery'),
+(2, 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80','dentist2', 'senior', 'cavity cleaning');
 
 insert into date values 
 (1, 1, '2022-10-20'),

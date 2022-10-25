@@ -41,8 +41,8 @@
         }
       }
       img[alt=Dentist] {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
         object-fit: cover;
       }
     </style>
@@ -84,7 +84,9 @@
           ?>
         </div>
         <div class="col-left-intro">
-          <p>Specialisation</p>
+          <?php
+            echo "<p>".$row['specialisation']."</p>";
+          ?>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper ultricies nunc, vel sollicitudin odio finibus in. Praesent quis velit dolor.</p>
         </div>
       </div>

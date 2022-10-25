@@ -1,36 +1,34 @@
 <?php
-    session_start();
-
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
     if(!isset($_POST['email']) || !isset($_POST['username']) || !isset($_POST['password'])){
         echo "<script>";
         echo "alert('Please key in the necessary fields!')";
         echo "</script>";
     }
 
+    session_start();
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
     @ $db = new mysqli('localhost', 'root', '', 'dental');
       if (mysqli_connect_errno()) {
         echo "Error: Could not connect to database.  Please try again later.";
         exit;
     }
-    
 
     function validateEmailAndUser($db, $email, $username){
         // check duplicate email or user
-        $query="select email from patient where email='".$email."'";
+        $query="select count(email) from patient where email='".$email."'";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
-        if($row > 0){
+        if($row['count(email)'] == 1){
             return false;
         }
 
-        $query="select username from patient where username='".$username."'";
+        $query="select count(username) from patient where username='".$username."'";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
-        if($row > 0){
+        if($row['count(username)'] == 1){
             return false;
         }
 
@@ -52,7 +50,6 @@
         $row = $result->fetch_assoc();
         $_SESSION["patientid"] = $row['patientid'];
                   
-        echo "<h1>".$_SESSION['patientid']."</h1>";
         echo "<script>";
         echo "location.href='../dentists/dentists.php';";
         echo "</script>";

@@ -53,7 +53,7 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="container">
-        <form action="insertuser.php" method="POST">
+        <form action="insert_user.php" method="POST">
           <div class="signup">
               <h1>SIGN UP</h1>
               <label for="email">Email</label>

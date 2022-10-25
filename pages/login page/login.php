@@ -54,7 +54,7 @@
     <div class="content">
       <div class="container">
           <div class="login">
-              <form action="" method="post">
+              <form action="login_user.php" method="post">
               <h1>LOGIN</h1>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -62,7 +62,7 @@
                 <input type="text" id="password" name="password" required>
                 <button type="submit">Book</button>
               </form>
-              <form action="" method="post">
+              <form action="reschedule_user.php" method="post">
                 <hr>
                 <p>Already have an appointment?</p>
                 <button type="submit">Reschedule</button>

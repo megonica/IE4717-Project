@@ -57,7 +57,7 @@
     }else {
         echo "<script>";
         echo "alert('User already exists!');";
-        echo "location.href='register.php';";
+        echo "history.back();";
         echo "</script>";
     }
 ?>

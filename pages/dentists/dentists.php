@@ -84,11 +84,29 @@
       section{
         display: grid;
         grid-template-columns: auto auto auto;
+        margin-top: 15px;
+        justify-content: center;
+      }
+
+      .filter {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: center;
+      }
+
+      .filter div {
+        margin: 0 10px;
       }
 
       @media screen and (max-width: 700px) {
         section{
           grid-template-columns: auto auto;
+        }
+        .filter{
+          grid-template-columns: auto;
+        }
+        .filter div {
+          margin: 0 10px 5px 10px;
         }
       }
     </style>
@@ -99,13 +117,18 @@
         exit;
       }
 
+      $records = array();
+
       $query="select * from dentist";
       $result = $db->query($query);
       if(!$result) {
 			  echo "Could not get dentists.";
 			  exit;
       } else {
-        $num_results = $result->num_rows;
+        // push records to new array to reuse results
+        while($record = $result->fetch_array(MYSQLI_ASSOC)) {
+          $records[]=$record;
+        }
       }
     ?>
   </head>
@@ -115,19 +138,50 @@
       <div class="container">
           <div class="doctors">
               <h1>Select one of our Experienced Dentists</h1>
+              <div class="filter">
+                <div>
+                  <label for="specialisation">Choice of Treatment: </label>
+                  <select name="specialisation" id="specialisation">
+                    <option value="">Select...</option>
+                    <?php
+                    // filter out duplicate specialisations
+                    $specialisations_filtered = array();
+                    foreach($records as $record){
+                      if(!in_array($record['specialisation'], $specialisations_filtered)){
+                        $specialisations_filtered[] = $record['specialisation'];
+                      }
+                    } 
+                    foreach($specialisations_filtered as $specialisation){
+                      echo  "<option value='".$specialisation."'>".$specialisation."</option>";
+                    } 
+                    ?>
+                  </select>
+                </div>
+                <div>
+                  <label for="dentist">Choice of Dentist: </label>
+                  <select name="dentist" id="dentist">
+                    <option value="">Select...</option>
+                    <?php
+                    foreach($records as $record){
+                      echo  "<option value='".$record['name']."'>".$record['name']."</option>";
+                    } 
+                    ?>
+                  </select>
+                </div>
+              </div>
                 <section>
                   <!-- to loop according to number of dentists from db -->
                   <?php
-                  for($i=0; $i<$num_results; $i++){
+                  foreach($records as $record){
                     $row = $result->fetch_assoc();
                     echo  "<form action='../appointment/appointment.php' method='POST'>";
                     echo  "<div class='card'>";
                     echo  "<div class='card-content'>";
-                    echo  "<input type='hidden' name='dentistid' value='".$row['dentistid']."'>";
-                    echo  "<img src='".$row['profile']."' alt='profile'>";
-                    echo  "<h2>".$row['name']."</h2>";
-                    echo  "<p>".$row['position']."</p>";
-                    echo  "<p>".$row['specialisation']."</p>";
+                    echo  "<input type='hidden' name='dentistid' value='".$record['dentistid']."'>";
+                    echo  "<img src='".$record['profile']."' alt='profile'>";
+                    echo  "<h2>".$record['name']."</h2>";
+                    echo  "<p>".$record['position']."</p>";
+                    echo  "<p>".$record['specialisation']."</p>";
                     echo  "<button type='submit'>Select</button>";
                     echo  "</div>";
                     echo  "</div>";

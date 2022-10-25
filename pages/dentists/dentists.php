@@ -72,6 +72,22 @@
         }
       }
     </style>
+    <?php
+      @ $db = new mysqli('localhost', 'root', '', 'dental');
+      if (mysqli_connect_errno()) {
+        echo "Error: Could not connect to database.  Please try again later.";
+        exit;
+      }
+
+      $query="select * from dentist";
+      $result = $db->query($query);
+      if(!$result) {
+			echo "Could not get most popular product.";
+			exit;
+      } else {
+        $num_results = $result->num_rows;
+      }
+    ?>
   </head>
   <body>
     <?php include '../../components/header.php';?>
@@ -82,12 +98,20 @@
               <h1>Select one of our Experienced Dentists</h1>
               <section>
                 <!-- to loop according to number of dentists from db -->
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
+                <?php
+
+                for($i=0; $i<$num_results; $i++){
+			            $row = $result->fetch_assoc();
+                  echo "<div class='card'>";
+                  echo "<div class='card-content'>";
+                  echo  "<img src='https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80' alt='profile'>";
+                  echo  "<h2>".$row['name']."</h2>";
+                  echo  "<p>".$row['position']."</p>";
+                  echo  "<p>".$row['specialisation']."</p>";
+                  echo  "<button type='submit'>Select</button>";
+                  echo  "</div>";
+                  echo  "</div>";
+                } ?>
               </section>
           </div>
         </form>

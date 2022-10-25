@@ -1,3 +1,4 @@
+<?php include '../../components/authorise_route.php';?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,13 +48,13 @@
       }
     </style>
     <?php
-      $dentistid = $_POST['dentistid'];
-
+      $dentistid;
       if(!isset($_POST['dentistid'])){
         echo "<script>";
-        echo "alert('Please select a dentist!')";
+        echo "alert('Please select a dentist!');";
+        echo "location.href='../dentists/dentists.php';";
         echo "</script>";
-      }
+      } else $dentistid = $_POST['dentistid'];
 
       @ $db = new mysqli('localhost', 'root', '', 'dental');
       if (mysqli_connect_errno()) {

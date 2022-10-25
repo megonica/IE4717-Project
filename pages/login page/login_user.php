@@ -28,7 +28,8 @@
         $_SESSION["patientid"] = $row['patientid'];
 
         echo "<script>";
-        echo "location.href='../dentists/dentists.php';";
+        if(isset($_POST['book'])) echo "location.href='../dentists/dentists.php';";
+        else if(isset($_POST['reschedule'])) echo "location.href='../appointment/appointment.php';";
         echo "</script>";
     } else {
         echo "<script>";

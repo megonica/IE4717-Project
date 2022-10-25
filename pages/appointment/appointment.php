@@ -40,19 +40,53 @@
           flex-direction: column;
         }
       }
+      img[alt=Dentist] {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
     </style>
+    <?php
+      $dentistid = $_POST['dentistid'];
+
+      if(!isset($_POST['dentistid'])){
+        echo "<script>";
+        echo "alert('Please select a dentist!')";
+        echo "</script>";
+      }
+
+      @ $db = new mysqli('localhost', 'root', '', 'dental');
+      if (mysqli_connect_errno()) {
+        echo "Error: Could not connect to database.  Please try again later.";
+        exit;
+      }
+
+      $query="select * from dentist where dentistid=".$dentistid."";
+      $result = $db->query($query);
+      if(!$result) {
+			echo "Could not get selected dentist.";
+			exit;
+      }
+      $row = $result->fetch_assoc();
+    ?>
   </head>
   <body>
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="col-left">
-        <img src="#" alt="Dentist">
+        <?php
+          echo "<img src='".$row['profile']."' alt='Dentist'>";
+        ?>
         <div class="col-left-top">
-          <h3>Dentist Name</h3>
-          <p>Position</p>
+          <?php
+            echo "<h3>".$row['name']."</h3>";
+            echo "<p>".$row['position']."</p>";
+          ?>
         </div>
         <div class="col-left-intro">
-          <p>Specialisation</p>
+          <?php
+            echo "<p>".$row['specialisation']."</p>";
+          ?>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper ultricies nunc, vel sollicitudin odio finibus in. Praesent quis velit dolor.</p>
         </div>
       </div>

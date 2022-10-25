@@ -11,9 +11,10 @@ password char(100) not null
 
 create table dentist (
 
-dentistid int unsigned not null auto_increment primary key, 
+dentistid int unsigned not null auto_increment primary key,
+profile char(100) not null,
 name char(50) not null, 
-position char(20) not null, 
+position char(50) not null, 
 specialisation char(50) not null
 
 );

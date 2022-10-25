@@ -19,7 +19,7 @@
       .card{
         width: 230px;
         height: 280px;
-        background-color: #D9D9D9;
+        background-color: #5CC6D0;
         margin: 10px;
         padding: 10px;
       }
@@ -48,12 +48,31 @@
       }
 
       .card button {
+        all: unset;
         width: 150px;
         font-weight: bold;
         font-size: 16px;
         height: 40px;
         display: block;
         margin: 25px auto 0 auto;
+        background-color: white;
+        text-align: center;
+        color: #4096c6;
+      }
+
+      .card button:hover {
+        all: unset;
+        width: 148px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 38px;
+        display: block;
+        margin: 25px auto 0 auto;
+        background-color: none;
+        border: 2px solid white;
+        text-align: center;
+        color: white;
+        cursor: pointer;
       }
 
       h1 {
@@ -72,25 +91,49 @@
         }
       }
     </style>
+    <?php
+      @ $db = new mysqli('localhost', 'root', '', 'dental');
+      if (mysqli_connect_errno()) {
+        echo "Error: Could not connect to database.  Please try again later.";
+        exit;
+      }
+
+      $query="select * from dentist";
+      $result = $db->query($query);
+      if(!$result) {
+			echo "Could not get dentists.";
+			exit;
+      } else {
+        $num_results = $result->num_rows;
+      }
+    ?>
   </head>
   <body>
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="container">
-        <form action="" method="post">
           <div class="doctors">
               <h1>Select one of our Experienced Dentists</h1>
-              <section>
-                <!-- to loop according to number of dentists from db -->
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-                <?php include '../../components/card.php';?>
-              </section>
+                <section>
+                  <!-- to loop according to number of dentists from db -->
+                  <?php
+                  for($i=0; $i<$num_results; $i++){
+                    $row = $result->fetch_assoc();
+                    echo  "<form action='../appointment/appointment.php' method='POST'>";
+                    echo  "<div class='card'>";
+                    echo  "<div class='card-content'>";
+                    echo  "<input type='hidden' name='dentistid' value='".$row['dentistid']."'>";
+                    echo  "<img src='".$row['profile']."' alt='profile'>";
+                    echo  "<h2>".$row['name']."</h2>";
+                    echo  "<p>".$row['position']."</p>";
+                    echo  "<p>".$row['specialisation']."</p>";
+                    echo  "<button type='submit'>Select</button>";
+                    echo  "</div>";
+                    echo  "</div>";
+                    echo  "</form>";
+                  } ?>
+                </section>
           </div>
-        </form>
       </div>
     </div>
     <?php include '../../components/footer.php';?>

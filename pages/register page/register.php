@@ -53,15 +53,15 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="container">
-        <form action="" method="post">
+        <form action="insertuser.php" method="POST">
           <div class="signup">
               <h1>SIGN UP</h1>
               <label for="email">Email</label>
-              <input type="text" id="email" name="email">
+              <input type="text" id="email" name="email" required>
               <label for="username">Username</label>
-              <input type="text" id="username" name="username">
+              <input type="text" id="username" name="username" required>
               <label for="password">Password</label>
-              <input type="text" id="password" name="password">
+              <input type="text" id="password" name="password" required>
               <button type="submit">Book</button>
           </div>
         </form>

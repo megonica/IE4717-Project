@@ -26,7 +26,6 @@
         display: block;
       }
 
-      button,
       input{
        width: 400px;
        height: 35px;
@@ -38,8 +37,9 @@
         padding: 0;
       }
 
-      button {
+      input[type=submit] {
         font-weight: bold;
+        margin-bottom: 0;
         width: 100%;
       }
 
@@ -54,18 +54,16 @@
     <div class="content">
       <div class="container">
           <div class="login">
-              <form action="" method="post">
-              <h1>LOGIN</h1>
+              <form action="login_user.php" method="post">
+                <h1>LOGIN</h1>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
                 <label for="password">Password</label>
                 <input type="text" id="password" name="password" required>
-                <button type="submit">Book</button>
-              </form>
-              <form action="" method="post">
+                <input type="submit" name="book" value="Book"></input>
                 <hr>
                 <p>Already have an appointment?</p>
-                <button type="submit">Reschedule</button>
+                <input type="submit" name="reschedule" value="Reschedule"></input>
               </form>
           </div>
       </div>

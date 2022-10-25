@@ -1,3 +1,4 @@
+<?php include '../../components/authorise_route.php';?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -101,8 +102,8 @@
       $query="select * from dentist";
       $result = $db->query($query);
       if(!$result) {
-			echo "Could not get dentists.";
-			exit;
+			  echo "Could not get dentists.";
+			  exit;
       } else {
         $num_results = $result->num_rows;
       }

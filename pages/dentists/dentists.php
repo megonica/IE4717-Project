@@ -99,7 +99,6 @@
               <section>
                 <!-- to loop according to number of dentists from db -->
                 <?php
-
                 for($i=0; $i<$num_results; $i++){
 			            $row = $result->fetch_assoc();
                   echo "<div class='card'>";

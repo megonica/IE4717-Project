@@ -52,7 +52,7 @@
       if(!isset($_POST['dentistid'])){
         echo "<script>";
         echo "alert('Please select a dentist!');";
-        echo "location.href='../dentists/dentists.php';";
+        echo "history.back();";
         echo "</script>";
       } else $dentistid = $_POST['dentistid'];
 

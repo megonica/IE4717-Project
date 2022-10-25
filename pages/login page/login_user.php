@@ -33,7 +33,7 @@
     } else {
         echo "<script>";
         echo "alert('Invalid username or password.');";
-        echo "location.href='./login.php';";
+        echo "history.back();";
         echo "</script>";
     }
 ?>

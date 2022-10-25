@@ -114,7 +114,6 @@
       <div class="container">
           <div class="doctors">
               <h1>Select one of our Experienced Dentists</h1>
-              
                 <section>
                   <!-- to loop according to number of dentists from db -->
                   <?php

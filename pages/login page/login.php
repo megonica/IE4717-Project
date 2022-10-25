@@ -53,19 +53,21 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="container">
-        <form action="" method="post">
           <div class="login">
+              <form action="" method="post">
               <h1>LOGIN</h1>
-              <label for="username">Username</label>
-              <input type="text" id="username" name="username">
-              <label for="password">Password</label>
-              <input type="text" id="password" name="password">
-              <button type="submit">Book</button>
-              <hr>
-              <p>Already have an appointment?</p>
-              <button type="submit">Reschedule</button>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" required>
+                <button type="submit">Book</button>
+              </form>
+              <form action="" method="post">
+                <hr>
+                <p>Already have an appointment?</p>
+                <button type="submit">Reschedule</button>
+              </form>
           </div>
-        </form>
       </div>
     </div>
     <?php include '../../components/footer.php';?>

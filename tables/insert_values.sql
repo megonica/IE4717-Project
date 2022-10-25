@@ -6,7 +6,7 @@ insert into patient values
 
 insert into dentist values 
 (1, 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80','Dr. David Singh', 'Senior Associate Dental Surgeon', 'Wisdom tooth surgery'),
-(2, 'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80','Dr. Matthew Lim', 'Senior Associate Dental Surgeon', 'Cosmetic dentistry'),
+(2, 'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80','Dr. Matthew Lim', 'Senior Associate Dental Surgeon', 'Wisdom tooth surgery'),
 (3, 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80','Dr. Kathy Tan', 'Senior Associate Dental Surgeon', 'Dental implant surgery'),
 (4, 'https://images.pexels.com/photos/3779697/pexels-photo-3779697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2','Dr. Mohammad Rifqi', 'Senior Associate Dental Surgeon', 'Ceramic crowns & bridges'),
 (5, 'https://images.pexels.com/photos/6529117/pexels-photo-6529117.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2','Dr. Cindy Maxwell', 'Oral Health Therapist', 'Hygienist (periodontal treatment)'),

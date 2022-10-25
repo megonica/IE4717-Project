@@ -15,6 +15,7 @@
         exit;
     }
 
+    // verify patient
     $query="select patientid, count(*) from `patient` where username='".$username."' and password='".$password."'";
     $result = $db->query($query);
     if(!$result){
@@ -22,8 +23,8 @@
         echo "alert('Failed to get user data.');";
         echo "</script>";
     }
-
     $row = $result->fetch_assoc();
+
     if($row['count(*)'] == 1){
         $_SESSION['created'] = time();
         $_SESSION["patientid"] = $row['patientid'];

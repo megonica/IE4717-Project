@@ -51,6 +51,9 @@
   </head>
   <body>
     <?php include '../../components/header.php';?>
+    <?php
+    unset ($_SESSION["patientid"]);
+    ?>
     <div class="content">
       <div class="container">
           <div class="login">

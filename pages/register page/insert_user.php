@@ -49,6 +49,7 @@
         $result = $db->query($query);
         $row = $result->fetch_assoc();
         $_SESSION["patientid"] = $row['patientid'];
+        $_SESSION['created'] = time();
                   
         echo "<script>";
         echo "location.href='../dentists/dentists.php';";

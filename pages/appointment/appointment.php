@@ -49,12 +49,6 @@
     </style>
     <?php
       $dentistid;
-      if(!isset($_POST['dentistid'])){
-        echo "<script>";
-        echo "alert('Please select a dentist!');";
-        echo "history.back();";
-        echo "</script>";
-      } else $dentistid = $_POST['dentistid'];
 
       @ $db = new mysqli('localhost', 'root', '', 'dental');
       if (mysqli_connect_errno()) {
@@ -62,11 +56,32 @@
         exit;
       }
 
+      if(isset($_GET['appointmentid'])){
+        // reschedule from login.php
+        $query="select dentistid from `appointment` where appointmentid='".$_GET['appointmentid']."'";
+        $result = $db->query($query);
+        if(!$result){
+                echo "<script>";
+                echo "alert('Failed to get appointment data.');";
+                echo "</script>";
+            }
+        $row = $result->fetch_assoc();
+        $dentistid = $row['dentistid'];
+      }else if(isset($_POST['dentistid'])){
+        // book from dentists.php
+        $dentistid = $_POST['dentistid'];
+      } else {
+        echo "<script>";
+        echo "alert('Please select a dentist!');";
+        echo "history.back();";
+        echo "</script>";
+      } 
+
       $query="select * from dentist where dentistid=".$dentistid."";
       $result = $db->query($query);
       if(!$result) {
-			echo "Could not get selected dentist.";
-			exit;
+        echo "Could not get selected dentist.";
+        exit;
       }
       $row = $result->fetch_assoc();
     ?>

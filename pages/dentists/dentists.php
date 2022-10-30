@@ -82,8 +82,8 @@
       }
 
       section{
-        display: grid;
-        grid-template-columns: auto auto auto;
+        /* display: grid;
+        grid-template-columns: auto auto auto; */
         margin-top: 15px;
         justify-content: center;
       }
@@ -160,21 +160,29 @@
               </div>
                 <section>
                   <!-- to loop according to number of dentists from db -->
-                  <?php
-                  foreach($records as $record){
-                    echo  "<form action='../appointment/appointment.php' method='POST'>";
-                    echo  "<div class='card'>";
-                    echo  "<div class='card-content'>";
-                    echo  "<input type='hidden' name='dentistid' value='".$record['dentistid']."'>";
-                    echo  "<img src='".$record['profile']."' alt='profile'>";
-                    echo  "<h2>".$record['name']."</h2>";
-                    echo  "<p>".$record['position']."</p>";
-                    echo  "<p>".$record['specialisation']."</p>";
-                    echo  "<button type='submit'>Select</button>";
-                    echo  "</div>";
-                    echo  "</div>";
-                    echo  "</form>";
-                  } ?>
+                  <table>
+                    <tbody>
+                      <tr style="display: flex; flex-wrap: wrap; padding: 0 100px; justify-content: center;">
+                        <?php
+                          foreach($records as $record){
+                            echo  "<td>";
+                            echo  "<form action='../appointment/appointment.php' method='POST'>";
+                            echo  "<div class='card'>";
+                            echo  "<div class='card-content'>";
+                            echo  "<input type='hidden' name='dentistid' value='".$record['dentistid']."'>";
+                            echo  "<img src='".$record['profile']."' alt='profile'>";
+                            echo  "<h2>".$record['name']."</h2>";
+                            echo  "<p>".$record['position']."</p>";
+                            echo  "<p>".$record['specialisation']."</p>";
+                            echo  "<button type='submit'>Select</button>";
+                            echo  "</div>";
+                            echo  "</div>";
+                            echo  "</form>";
+                            echo  "</td>";
+                          } ?>
+                        </tr>
+                    </tbody>
+                  </table>
                 </section>
           </div>
       </div>

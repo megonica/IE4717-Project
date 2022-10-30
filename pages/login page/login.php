@@ -41,6 +41,19 @@
         font-weight: bold;
         margin-bottom: 0;
         width: 100%;
+        background-color: #5CC6D0;
+        border: none;
+        color: white;
+      }
+
+      input[type=submit]:hover {
+        font-weight: bold;
+        margin-bottom: 0;
+        width: 100%;
+        background-color: white;
+        border: 2px solid #5CC6D0;
+        color: #5CC6D0;
+        cursor: pointer;
       }
 
       hr{

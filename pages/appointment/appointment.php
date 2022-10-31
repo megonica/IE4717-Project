@@ -118,12 +118,23 @@
       $dateid;
       
       if(isset($_GET['date'])){
-        $query="select date.dateid, time.time_available from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."';";
+        $query="select date.dateid, time.time_available, time.timeid from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."';";
         $result = $db->query($query);
         if(!$result) {
           echo "Could not get timings available.";
           exit;
         } else {
+            // verify if timing(s) have been booked
+            $time_booked = array();
+            $query="select timeid from appointment;";
+            $appointments = $db->query($query);
+            $num_appointments = $appointments->num_rows; 
+            
+            for ($i=0; $i <$num_appointments; $i++) { 
+              $appointment = $appointments->fetch_assoc();
+              $time_booked[] =  $appointment['timeid'];
+            }
+
             while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
               if(!in_array($time_avail['time_available'], $time_str)){
                 $time_str[] = strtotime($time_avail['time_available']);

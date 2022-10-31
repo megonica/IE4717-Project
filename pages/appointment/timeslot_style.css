@@ -1,0 +1,11 @@
+.appt-time {
+	background: red;
+	min-height: calc(100vh - 174px);
+}
+.appt-time form {
+	display: flex;
+	flex-wrap: wrap;
+}
+form input {
+	cursor: pointer;
+}

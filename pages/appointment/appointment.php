@@ -1,3 +1,4 @@
+<?php include '../../components/authorise_route.php';?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,6 +24,11 @@
       .col-left img {
         float: left;
         border: 2px solid;
+      }
+      img[alt=Dentist] {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
       }
       .col-left-top {
         float: left;
@@ -53,6 +59,44 @@
         }
       }
     </style>
+    <?php
+      $dentistid;
+
+      @ $db = new mysqli('localhost', 'root', '', 'dental');
+      if (mysqli_connect_errno()) {
+        echo "Error: Could not connect to database.  Please try again later.";
+        exit;
+      }
+
+      if(isset($_GET['appointmentid'])){
+        // reschedule from login.php
+        $query="select dentistid from `appointment` where appointmentid='".$_GET['appointmentid']."'";
+        $result = $db->query($query);
+        if(!$result){
+                echo "<script>";
+                echo "alert('Failed to get appointment data.');";
+                echo "</script>";
+            }
+        $row = $result->fetch_assoc();
+        $dentistid = $row['dentistid'];
+      }else if(isset($_POST['dentistid'])){
+        // book from dentists.php
+        $dentistid = $_POST['dentistid'];
+      } else {
+        echo "<script>";
+        echo "alert('Please select a dentist!');";
+        echo "history.back();";
+        echo "</script>";
+      } 
+
+      $query="select * from dentist where dentistid=".$dentistid."";
+      $result = $db->query($query);
+      if(!$result) {
+        echo "Could not get selected dentist.";
+        exit;
+      }
+      $row = $result->fetch_assoc();
+    ?>
   </head>
   <body>
     <?php include '../../components/header.php';?>
@@ -65,6 +109,19 @@
         </div>
         <div class="col-left-intro">
           <p>Specialisation</p>
+        <?php
+          echo "<img src='".$row['profile']."' alt='Dentist'>";
+        ?>
+        <div class="col-left-top">
+          <?php
+            echo "<h3>".$row['name']."</h3>";
+            echo "<p>".$row['position']."</p>";
+          ?>
+        </div>
+        <div class="col-left-intro">
+          <?php
+            echo "<p>".$row['specialisation']."</p>";
+          ?>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper ultricies nunc, vel sollicitudin odio finibus in. Praesent quis velit dolor.</p>
         </div>
       </div>

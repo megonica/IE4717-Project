@@ -81,12 +81,19 @@
       }else if(isset($_POST['dentistid'])){
         // book from dentists.php
         $dentistid = $_POST['dentistid'];
+      } else if(isset($_GET['dentistid'])){
+        // book from dentists.php
+        $dentistid = $_GET['dentistid'];
       } else {
         echo "<script>";
         echo "alert('Please select a dentist!');";
         echo "history.back();";
         echo "</script>";
       } 
+
+      echo "<script>";
+      echo "localStorage.setItem('dentistid', '".$dentistid."');";
+      echo "</script>";
 
       $query="select * from dentist where dentistid=".$dentistid."";
       $result = $db->query($query);
@@ -99,29 +106,53 @@
       // get available time slots
       $time_str = array();
 
-      $query = "select dateid from date where date.dentistid=".$dentistid." and date.date_available='2022-10-20'";
-      $result = $db->query($query);
-      if(!$result) {
-        echo "Could not get dentists.";
-        exit;
-      } else {
-        $dateid = $result->fetch_assoc();
+      // $query = "select dateid from date where date.dentistid=".$dentistid." and date.date_available='2022-10-20'";
+      // $result = $db->query($query);
+      // if(!$result) {
+      //   echo "Could not get dentists.";
+      //   exit;
+      // } else {
+      //   $dateid = $result->fetch_assoc();
+      // }
+
+      $dateid;
+      
+      if(isset($_GET['date'])){
+        $query="select date.dateid, time.time_available from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."';";
+        $result = $db->query($query);
+        if(!$result) {
+          echo "Could not get timings available.";
+          exit;
+        } else {
+            while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
+              if(!in_array($time_avail['time_available'], $time_str)){
+                $time_str[] = strtotime($time_avail['time_available']);
+                $dateid = $time_avail['dateid'];
+              }
+            }
+          // $time_avail[] = $result->fetch_assoc();
+          // $time_str[] = strtotime($time_avail['time_available']);
+        }
       }
       
-      $query = "select time_available from time where dateid=".$dateid['dateid'];
+
+      // get date available
+      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = ".$dentistid.";";
       $result = $db->query($query);
       if(!$result) {
-        echo "Could not get dentists.";
+        echo "Could not get selected dentist's dates and time available.";
         exit;
-      } else {
-          while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
-            if(!in_array($time_avail['time_available'], $time_str)){
-              $time_str[] = strtotime($time_avail['time_available']);
-            }
-          }
-        // $time_avail[] = $result->fetch_assoc();
-        // $time_str[] = strtotime($time_avail['time_available']);
       }
+      $num_results = $result->num_rows;
+
+      echo "<script>";
+      echo "sessionStorage.clear();";
+      for($i=0; $i <$num_results; $i++){
+        $dateAndTimeRow = $result->fetch_assoc();
+        $date = substr($dateAndTimeRow['date_available'], -2);
+        echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
+      }
+      echo "</script>";
     ?>
   </head>
   <body>
@@ -174,19 +205,33 @@
             </div>
           </div>
           <div class="appt-time">
-            <p style="margin-top: 45px;">Wednesday, April 23</p>
+            <!-- <p style="margin-top: 45px;">Wednesday, April 23</p> -->
             <form action='../confirmation/confirmation.php' method='POST'>
               <div class="time-display">
                 <?php
+                if(isset($_GET['date'])){
+                  echo "<input type='hidden' name='dentistid' value='".$dentistid."'>";
+                  echo "<input type='hidden' name='dateid' value='".$dateid."'>";
+                  echo '<p style="color: white; margin-left: 10px;">Please select a timing below</p>';
+                }
+              ?>
+                <?php
                   foreach ($time_str as $time) {
                     // echo "<input type=\"button\" name=\"\" value=\"".date("h:iA", $time)."\">";
-                    echo "<label class=\"time-radio\">".date("h:iA", $time);
-                    echo "<input type=\"radio\" checked=\"checked\" name=\"radio\">";
-                    echo "</label>";
+                    echo "<input type=\"radio\" checked=\"checked\" name=\"radio\" value='".date("H:i:s", $time)."'>";
+                    echo "<label class=\"time-radio\">".date("h:iA", $time)."</label>";
+                    echo "<br>";
                   }
                 ?>
               </div>
-              <button type="submit" name="">Book</button>
+              <?php
+                if(isset($_GET['date'])){
+                  echo '<button type="submit" name="book">Book</button>';
+                }else {
+                  echo '<p style="color: white; margin-left: 10px;">Please select a date on the calendar</p>';
+                  echo '<button type="submit" name="book" disabled>Book</button>';
+                }
+              ?>
             </form>
           </div>
         </div>
@@ -196,28 +241,13 @@
     <script>
       function getDay() {
         const { value } = event.target;
-        alert(new Date().getFullYear() + '-' + new Date().getMonth() + '-' + value);
+        const month = event.target.getAttribute('data-month');
+        const year = event.target.getAttribute('data-year');
+        const selectedDate = `${year}-${month}-${value}`;
+        const dentistid = localStorage.getItem('dentistid');
+        location.href = `./appointment.php?dentistid=${dentistid}&date=${selectedDate}`;
       }
     </script>
-    <?php
-      // get date & time available
-      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = 1;";
-      $result = $db->query($query);
-      if(!$result) {
-        echo "Could not get selected dentist's dates and time available.";
-        exit;
-      }
-      $num_results = $result->num_rows;
-      
-      echo '<script type="text/javascript" src="calendar_script.js"></script>';
-      echo "<script>";
-      echo "sessionStorage.clear();";
-      for($i=0; $i <$num_results; $i++){
-        $dateAndTimeRow = $result->fetch_assoc();
-        $date = substr($dateAndTimeRow['date_available'], -2);
-        echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
-      }
-      echo "</script>";
-    ?>
   </body>
+  <script type="text/javascript" src="calendar_script.js"></script>
 </html>

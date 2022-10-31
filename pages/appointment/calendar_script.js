@@ -44,7 +44,9 @@ const renderCalendar = () => {
     if (isActive === '')
       liTag += `<input type="button" class="" value="${i}" disabled>`;
     else if (isActive === 'active') {
-      liTag += `<input type="button" class="active" value="${i}" onclick="getDay()">`;
+      liTag += `<input type="button" class="active" value="${i}" onclick="getDay()" data-month="${
+        currMonth + 1
+      }" data-year="${currYear}">`;
     }
   }
 

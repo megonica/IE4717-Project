@@ -25,27 +25,40 @@
       exit;
     }
 
-    // get username
-    $query = "select username from patient where patientid=1";
+    $patientid = !empty($_SESSION["patientid"]) ? $_SESSION["patientid"] : '';
+    $dentistid = isset($_POST['dentistid']) ? $_POST['dentistid'] : '';
+    $dateid = isset($_POST['dateid']) ? $_POST['dateid'] : '';
+    $timeid = isset($_POST['radio']) ? $_POST['radio'] : '';
+
+    if($patientid === '' || $dentistid === '' || $dateid === '' || $timeid === ''){
+      echo "<script>";
+      echo "alert('Please select a date and time!');";
+      echo "history.back();";
+      echo "</script>";
+    }
+
+    $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
     $result = $db->query($query);
+
+    // get username
+    $query = "select username from patient where patientid=".$patientid."";
+    $result = $db->query($query);
+    $row = $result->fetch_assoc();
     if(!$result) {
       echo "Could not get username.";
       exit;
-    } else {
-      $username = $result->fetch_assoc();
-      echo $username['username'];
     }
 
-    // get dentist name
-    $query = "select name from appointment, dentist where appointment.patientid=1 and dentist.dentistid=appointment.dentistid";
-    $result = $db->query($query);
-    if(!$result) {
-      echo "Could not get dentist name.";
-      exit;
-    } else {
-      $dentistname = $result->fetch_assoc();
-      echo $dentistname['name'];
-    }
+    // // get dentist name
+    // $query = "select name from appointment, dentist where appointment.patientid=1 and dentist.dentistid=appointment.dentistid";
+    // $result = $db->query($query);
+    // if(!$result) {
+    //   echo "Could not get dentist name.";
+    //   exit;
+    // } else {
+    //   $dentistname = $result->fetch_assoc();
+    //   echo $dentistname['name'];
+    // }
 
     ?>
   </head>
@@ -53,7 +66,9 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <h1>Appointment Confirmation</h1>
-      <p>ABC, your appointment has been confirmed. The details are as follows:</p>
+      <?php
+        echo "<p>".$row['username'].", your appointment has been confirmed. The details are as follows:</p>";
+      ?>
       <h3>Dr. Smile</h3>
       <h3>Wednesday, 24 April 2022</h3>
       <h3>2:00pm</h3>

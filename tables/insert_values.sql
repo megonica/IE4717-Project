@@ -13,9 +13,9 @@ insert into dentist values
 (6, 'https://images.pexels.com/photos/4687360/pexels-photo-4687360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2','Dr. Jenny Koh', 'Orthodontics Specialist', 'Teeth straightening');
 
 insert into date values 
-(1, 1, '2022-10-20'),
-(2, 1, '2022-10-23'),
-(3, 2, '2022-10-20');
+(1, 1, '2022-11-20'),
+(2, 1, '2022-11-23'),
+(3, 2, '2022-11-20');
 
 insert into time values 
 (1, 1, '10:30:00'),

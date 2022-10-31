@@ -94,14 +94,14 @@
         justify-content: center;
       }
 
-      @media screen and (max-width: 700px) {
+      /* @media screen and (max-width: 700px) {
         section{
           grid-template-columns: auto auto;
         }
         .filter{
           grid-template-columns: auto;
         }
-      }
+      } */
     </style>
     <?php
       @ $db = new mysqli('localhost', 'root', '', 'dental');

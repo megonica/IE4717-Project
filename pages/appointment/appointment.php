@@ -21,9 +21,10 @@
         padding: 25px;
         height: 300px;
       }
-      .col-left img {
+      .col-left-img {
         float: left;
         border: 2px solid;
+        margin-right: 5px;
       }
       img[alt=Dentist] {
         width: 100px;
@@ -31,7 +32,6 @@
         object-fit: cover;
       }
       .col-left-top {
-        float: left;
         border: 2px solid;
       }
       .col-left-intro {
@@ -102,16 +102,11 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="col-left">
-        <img src="#" alt="Dentist">
-        <div class="col-left-top">
-          <h3>Dentist Name</h3>
-          <p>Position</p>
+        <div class="col-left-img">
+          <?php
+            echo "<img src='".$row['profile']."' alt='Dentist'>";
+          ?>          
         </div>
-        <div class="col-left-intro">
-          <p>Specialisation</p>
-        <?php
-          echo "<img src='".$row['profile']."' alt='Dentist'>";
-        ?>
         <div class="col-left-top">
           <?php
             echo "<h3>".$row['name']."</h3>";

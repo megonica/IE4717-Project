@@ -13,21 +13,24 @@
       }
       .col-left {
         flex: 50%;
-        border: 2px solid;
         padding: 25px;
+        display: flex;
+        align-items: center;
       }
       .col-left img {
-        background-color: #aaa;
         width: 100%;
         padding: 20px;
       }
       .col-right {
         flex: 50%;
-        border: 2px solid;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 25px;
+        padding-right: 50px;
+      }
+      .col-right p {
+        text-align: justify;
       }
       .col-right button {
         background-color: lightblue;
@@ -50,14 +53,14 @@
     <?php include '../../components/header.php';?>
     <div class="content">
       <div class="col-left">
-        <img src="" alt="Home Image" style="height: 200px;">
+        <img src="https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" alt="Home Image" >
       </div>
       <div class="col-right">
         <div>
-          <div><p>Welcome to</p></div>
-          <div><h1>Best Smile Dental Clinic Online Booking System</h1></div>
-          <div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec lectus sit amet sapien viverra congue. Praesent consectetur tortor et efficitur venenatis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec lectus sit amet sapien viverra congue.</p></div>
-          <div><p>Call us +65 12345678 to find out more.</p></div>
+          <p>Welcome to</p>
+          <h1>Best Smile Dental Clinic Online Booking System</h1>
+          <p>Book your appointment with our world famous dentists today! Experiencing problems with your dental health? Fret not, as you will surely find a dentist that meets your needs. Register with us today and book an appointment to free your worries.</p>
+          <p>Call us +65 12345678 to find out more.</p>
           <div>
             <a href="../login page/login.php"><button type="button" name="login" id="login">Login</button></a>
             <a href="../register page/register.php"><button type="button" name="signup" id="signup">Sign Up</button></a>

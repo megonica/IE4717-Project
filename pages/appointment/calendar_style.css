@@ -1,83 +1,85 @@
 .appt-date {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: calc(100vh - 174px);
-	background: #9B59B6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 174px);
+  background: #9b59b6;
 }
 .wrapper {
-	width: 450px;
-	background: #fff;
-	border-radius: 10px;
+  width: 450px;
+  background: #fff;
+  border-radius: 10px;
 }
 .wrapper .cal-header {
-	display: flex;
-	align-items: center;
-	padding: 25px 30px 10px;
-	justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
 }
 .cal-header .current-date {
-	font-size: 1.45rem;
-	font-weight: 500;
+  font-size: 1.45rem;
+  font-weight: 500;
 }
 .cal-header .icons span {
-	width: 38px;
-	height: 38px;
-	color: #878787;
-	font-size: 1.9rem;
-	margin: 0px 1px;
-	cursor: pointer;
-	text-align: center;
-	line-height: 38px;
-	border-radius: 50px;
+  width: 38px;
+  height: 38px;
+  color: #878787;
+  font-size: 1.9rem;
+  margin: 0px 1px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 50px;
 }
 .cal-header .icons span:hover {
-	background: #f2f2f2;
-
+  background: #f2f2f2;
 }
 /*.cal-header .icons span:last-child {
 	margin-right: -10px;
 }*/
 .calendar {
-	padding: 20px;
+  padding: 20px;
 }
 .calendar ul {
-	display: flex;
-	list-style: none;
-	flex-wrap: wrap;
-	/*text-align: center;*/
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  /*text-align: center;*/
 }
 .calendar .days {
-	margin-bottom: 20px;
-	padding-left: 30px;
+  margin-bottom: 20px;
+  padding-left: 30px;
 }
 /*.calendar .weeks li {
 	font-weight: 500;
 }*/
 .calendar .days input {
-	cursor: pointer;
-	margin-top: 30px;
-	position: relative;
-	height: 40px;
-	width: 40px;
-	margin: 6px;
-	border: 0px;
-	border-radius: 50%;
-	background: #fff;
+  margin-top: 30px;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  margin: 6px;
+  border: 0px;
+  border-radius: 50%;
+  background: #fff;
 }
 .days input.inactive {
-	color: #aaa;
+  color: #aaa;
 }
 .days input.active {
-	background: #9B59B6;
-	color: #fff;
+  background: #9b59b6;
+  color: #fff;
 }
-.calendar .days input:hover {
-	background: #f2f2f2; 
+.calendar .days input:not([disabled]) {
+  cursor: pointer;
 }
+
+/* .calendar .days input:hover {
+  background: #f2f2f2;
+} */
 .calendar .days input.active:hover {
-	background: #9B59B6;
-	color: #fff;	
+  background: #9b59b6;
+  color: #fff;
 }
 /*.calendar .days button::before {
 	position: absolute;
@@ -87,9 +89,9 @@
 	border: 0px;
 }*/
 .calendar ul li {
-	position: relative;
-	width: calc(100%/7);
+  position: relative;
+  width: calc(100% / 7);
 }
 .calendar ul a {
-	width: calc(100%/7);
+  width: calc(100% / 7);
 }

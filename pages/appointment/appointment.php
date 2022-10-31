@@ -8,7 +8,6 @@
     <title>Best Smile Dental Clinic - Appointment</title>
     <link rel="stylesheet" type="text/css" href="../../styles/global.css">
     <link rel="stylesheet" type="text/css" href="calendar_style.css">
-    <script type="text/javascript" src="calendar_script.js" defer></script>
     <link rel="stylesheet" type="text/css" href="timeslot_style.css">
     <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
     <style type="text/css">
@@ -200,5 +199,31 @@
       </div>
     </div>
     <?php include '../../components/footer.php';?>
+    <script>
+      function getDay() {
+        const { value } = event.target;
+        alert(new Date().getFullYear() + '-' + new Date().getMonth() + '-' + value);
+      }
+    </script>
+    <?php
+      // get date & time available
+      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = 1;";
+      $result = $db->query($query);
+      if(!$result) {
+        echo "Could not get selected dentist's dates and time available.";
+        exit;
+      }
+      $num_results = $result->num_rows;
+      
+      echo '<script type="text/javascript" src="calendar_script.js"></script>';
+      echo "<script>";
+      echo "sessionStorage.clear();";
+      for($i=0; $i <$num_results; $i++){
+        $dateAndTimeRow = $result->fetch_assoc();
+        $date = substr($dateAndTimeRow['date_available'], -2);
+        echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
+      }
+      echo "</script>";
+    ?>
   </body>
 </html>

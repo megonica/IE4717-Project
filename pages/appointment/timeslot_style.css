@@ -6,14 +6,84 @@
 	display: flex;
 	flex-wrap: wrap;
 }
-form table input {
+/*.time-display input {
 	cursor: pointer;
 	width: 80px;
 	height: 40px;
 	border: 0px;
-	border-radius: 5px;
+	margin-right: 15px;
+	background-color: white;
+	text-align: center;
+	color: #4096c6;
 }
+.time-display input:hover {
+	cursor: pointer;
+	width: 80px;
+	height: 40px;
+	border: 0px;
+	margin-right: 15px;
+	background: none;
+	border: 2px solid white;
+	text-align: center;
+	color: white;
+}*/
+.time-radio {
+	cursor: pointer;
+	position: relative;
+	border: 0px;
+	margin-right: 15px;
+	padding: 10px;
+	background-color: white;
+	text-align: center;
+	color: #4096c6;
+	font-size: 15px;
+}
+.time-radio:hover {
+	cursor: pointer;
+	position: relative;
+	border: 0px;
+	margin-right: 15px;
+	padding: 10px;
+	background: none;
+	border: 2px solid white;
+	text-align: center;
+	color: white;
+	font-size: 15px;
+}
+.time-radio input:checked {
+	cursor: pointer;
+	background: black;
+}
+/*.time-radio input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}*/
 td {
 	padding-right: 5px;
 	padding-bottom: 5px;
+}
+button {
+	all: unset;
+	width: 150px;
+	font-weight: bold;
+	font-size: 16px;
+	height: 40px;
+	display: block;
+	background-color: white;
+	text-align: center;
+	color: #4096c6;
+}
+button:hover {
+	all: unset;
+	width: 148px;
+	font-weight: bold;
+	font-size: 16px;
+	height: 38px;
+	display: block;
+	background-color: none;
+	border: 2px solid white;
+	text-align: center;
+	color: white;
+	cursor: pointer;
 }

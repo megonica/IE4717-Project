@@ -16,6 +16,38 @@
         justify-content: center;
       }
     </style>
+    <?php
+
+
+    @ $db = new mysqli('localhost', 'root', '', 'dental');
+    if (mysqli_connect_errno()) {
+      echo "Error: Could not connect to database.  Please try again later.";
+      exit;
+    }
+
+    // get username
+    $query = "select username from patient where patientid=1";
+    $result = $db->query($query);
+    if(!$result) {
+      echo "Could not get username.";
+      exit;
+    } else {
+      $username = $result->fetch_assoc();
+      echo $username['username'];
+    }
+
+    // get dentist name
+    $query = "select name from appointment, dentist where appointment.patientid=1 and dentist.dentistid=appointment.dentistid";
+    $result = $db->query($query);
+    if(!$result) {
+      echo "Could not get dentist name.";
+      exit;
+    } else {
+      $dentistname = $result->fetch_assoc();
+      echo $dentistname['name'];
+    }
+
+    ?>
   </head>
   <body>
     <?php include '../../components/header.php';?>

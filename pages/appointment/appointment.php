@@ -148,17 +148,52 @@
             </div>
           </div>
           <div class="appt-time">
-            <p>Wednesday, April 23</p>
+            <p style="margin-top: 45px;">Wednesday, April 23</p>
             <form>
-              <input type="button" name="" value="10:00 AM">
-              <input type="button" name="" value="11:00 AM">
-              <input type="button" name="" value="1:30 PM">
-              <input type="button" name="" value="2:00 PM">
-              <input type="button" name="" value="2:30 PM">
-              <input type="button" name="" value="3:00 PM">
-              <input type="button" name="" value="3:30 PM">
-              <input type="button" name="" value="4:30 PM">
-              <input type="submit" name="submit">
+              <table style="margin-top: 30px;">
+                <tr>
+                  <td><input type="button" name="" value="10:00 AM"></td>
+                  <td><input type="button" name="" value="11:00 AM"></td>
+                  <td><input type="button" name="" value="1:30 PM"></td>
+                  <td><input type="button" name="" value="2:00 PM"></td>
+                </tr>
+                <tr>
+                  <td><input type="button" name="" value="2:30 PM"></td>
+                  <td><input type="button" name="" value="3:00 PM"></td>
+                  <td><input type="button" name="" value="3:30 PM"></td>
+                  <td><input type="button" name="" value="4:30 PM"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="button" name="" value="">
+                    <?php
+                      $query = "select dateid from date where date.dentistid=".$dentistid." and date.date_available='2022-10-20'";
+                      $result = $db->query($query);
+                      if(!$result) {
+                        echo "Could not get dentists.";
+                        exit;
+                      } else {
+                        $dateid = $result->fetch_assoc();
+                      }
+                      $query = "select time_available from time where dateid=".$dateid['dateid'];
+                      $result = $db->query($query);
+                      if(!$result) {
+                        echo "Could not get dentists.";
+                        exit;
+                      } else {
+                        $time_avail = $result->fetch_assoc();
+                        $d = strtotime($time_avail['time_available']);
+                        echo date("h:iA", $d);
+                      }
+                    ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="submit" name="submit"></td>
+                  <td colspan="3"></td>
+                </tr>
+              </table>
+              
             </form>
           </div>
         </div>

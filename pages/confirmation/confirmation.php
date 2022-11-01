@@ -45,76 +45,76 @@
       echo "alert('Please select a date and time!');";
       echo "history.back();";
       echo "</script>";
-    }
+    } else {
 
-    @ $db = new mysqli('localhost', 'root', '', 'dental');
-    if (mysqli_connect_errno()) {
-      echo "Error: Could not connect to database.  Please try again later.";
-      exit;
-    }
+      @ $db = new mysqli('localhost', 'root', '', 'dental');
+      if (mysqli_connect_errno()) {
+        echo "Error: Could not connect to database.  Please try again later.";
+        exit;
+      }
 
-    // check if user wants to reschedule existing appt or book new appt
-    $query="select appointmentid from `appointment` where patientid='".$patientid."'";
-    $result = $db->query($query);
-    if(!$result){
-        echo "alert('Failed to verify if user already has an existing appointment.');";
-    }
-    $row = $result->fetch_assoc();
-    if($row) {
-        // reschedule existing appt 
-        $query = "update appointment set dateid = ".$dateid.", timeid = ".$timeid." where patientid = ".$patientid;
-        $result = $db->query($query);
-        if(!$result){
-          echo "alert('Failed to update appointment.');";
-          exit;
-        }
-    }else {
-        // insert new appointment
-        $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
-        $result = $db->query($query);
-        if(!$result){
-          echo "alert('Failed to create new appointment.');";
-          exit;
-        }
-    }
+      // check if user wants to reschedule existing appt or book new appt
+      $query="select appointmentid from `appointment` where patientid='".$patientid."'";
+      $result = $db->query($query);
+      if(!$result){
+          echo "alert('Failed to verify if user already has an existing appointment.');";
+      }
+      $row = $result->fetch_assoc();
+      if($row) {
+          // reschedule existing appt 
+          $query = "update appointment set dateid = ".$dateid.", timeid = ".$timeid." where patientid = ".$patientid;
+          $result = $db->query($query);
+          if(!$result){
+            echo "alert('Failed to update appointment.');";
+            exit;
+          }
+      } else {
+          // insert new appointment
+          $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
+          $result = $db->query($query);
+          if(!$result){
+            echo "alert('Failed to create new appointment.');";
+            exit;
+          }
+      }
 
-    // get username & email
-    $query = "select username, email from patient where patientid=".$patientid."";
-    $result = $db->query($query);
-    $row = $result->fetch_assoc();
-    if(!$result) {
-      echo "Could not get username & email.";
-      exit;
-    }
+      // get username & email
+      $query = "select username, email from patient where patientid=".$patientid."";
+      $result = $db->query($query);
+      $row = $result->fetch_assoc();
+      if(!$result) {
+        echo "Could not get username & email.";
+        exit;
+      }
 
-    // get dentist name
-    $query = "select dentist.name from appointment, dentist where appointment.patientid=".$patientid." and dentist.dentistid=appointment.dentistid";
-    $result = $db->query($query);
-    if(!$result) {
-      echo "Could not get dentist name.";
-      exit;
-    } else 
-    $dentistname = $result->fetch_assoc();
+      // get dentist name
+      $query = "select dentist.name from appointment, dentist where appointment.patientid=".$patientid." and dentist.dentistid=appointment.dentistid";
+      $result = $db->query($query);
+      if(!$result) {
+        echo "Could not get dentist name.";
+        exit;
+      } else 
+      $dentistname = $result->fetch_assoc();
 
-    // get date 
-    $query = "select date_available from appointment, `date` where appointment.patientid = ".$patientid." and date.dateid=appointment.dateid";
-    $result = $db->query($query);
-    if(!$result) {
-      echo "Could not get date_available.";
-      exit;
-    }
-    $date_avail = $result->fetch_assoc();
-    $date_str = strtotime($date_avail['date_available']);
+      // get date 
+      $query = "select date_available from appointment, `date` where appointment.patientid = ".$patientid." and date.dateid=appointment.dateid";
+      $result = $db->query($query);
+      if(!$result) {
+        echo "Could not get date_available.";
+        exit;
+      }
+      $date_avail = $result->fetch_assoc();
+      $date_str = strtotime($date_avail['date_available']);
 
-    // get time
-    $query = "select time_available from appointment, `time` where appointment.patientid = ".$patientid." and time.timeid=appointment.timeid";
-    $result = $db->query($query);
-    if(!$result) {
-      echo "Could not get time_available.";
-      exit;
-    }
-    $time_avail = $result->fetch_assoc();
-    $time_str = strtotime($time_avail['time_available']);
+      // get time
+      $query = "select time_available from appointment, `time` where appointment.patientid = ".$patientid." and time.timeid=appointment.timeid";
+      $result = $db->query($query);
+      if(!$result) {
+        echo "Could not get time_available.";
+        exit;
+      }
+      $time_avail = $result->fetch_assoc();
+      $time_str = strtotime($time_avail['time_available']);
     ?>
   </head>
   <body>
@@ -179,4 +179,5 @@
       // echo ("mail sent to: ".$to);
     ?>
   </body>
+  <?php }?>
 </html>

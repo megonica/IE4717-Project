@@ -164,7 +164,7 @@
       
 
       // get date available
-      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = ".$dentistid." and date.date_available <= DATE(NOW() + INTERVAL 3 MONTH) and date.date_available >= DATE(NOW());";
+      $query="select time.timeid, date.date_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON time.dateid = date.dateid WHERE dentist.dentistid = ".$dentistid." and date.date_available <= DATE(NOW() + INTERVAL 3 MONTH) and date.date_available >= DATE(NOW());";
       $result = $db->query($query);
       if(!$result) {
         echo "Could not get selected dentist's dates and time available.";
@@ -176,8 +176,10 @@
       echo "sessionStorage.clear();";
       for($i=0; $i <$num_results; $i++){
         $dateAndTimeRow = $result->fetch_assoc();
-        $date = substr($dateAndTimeRow['date_available'], -2);
-        echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
+        if(!in_array($dateAndTimeRow['timeid'], $time_booked)){
+          $date = substr($dateAndTimeRow['date_available'], -2);
+          echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
+        }
       }
       echo "sessionStorage.setItem('dentistid', '".$dentistid."');";
       echo "</script>";
@@ -262,7 +264,6 @@
               </div>
               <?php
                 if(isset($_GET['date'])){
-                  if (count($time_str) === 0) echo '<p style="color: white; margin-left: 10px;">There are currently no timings available</p>';
                   echo '<button type="submit" name="book">Book</button>';
                 }else {
                   echo '<p style="color: white; margin-left: 10px;">Please select a date on the calendar</p>';

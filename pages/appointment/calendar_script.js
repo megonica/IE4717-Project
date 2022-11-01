@@ -39,7 +39,9 @@ const renderCalendar = () => {
   for (let i = 1; i <= lastDateofMonth; i++) {
     // creating button of all days of current month
     // adding active class to button if the current day, month, and year matched
-    let date = currYear + '-' + (currMonth + 1) + '-' + i;
+    let date = currYear + '-' + (currMonth + 1) + '-';
+    if (i < 10) date += `0${i}`;
+    else date += i;
     let isActive = sessionStorage.getItem(date) !== null ? 'active' : '';
     if (isActive === '')
       liTag += `<input type="button" class="" value="${i}" disabled>`;

@@ -31,6 +31,9 @@
       }
     </style>
     <?php
+    echo "<script>";
+    echo "sessionStorage.clear();";
+    echo "</script>";
 
     $patientid = !empty($_SESSION["patientid"]) ? $_SESSION["patientid"] : '';
     $dentistid = isset($_POST['dentistid']) ? $_POST['dentistid'] : '';

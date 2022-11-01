@@ -102,16 +102,6 @@
       // get available time slots
       $time_str = array();
       $time_str_ids = array();
-
-      // $query = "select dateid from date where date.dentistid=".$dentistid." and date.date_available='2022-10-20'";
-      // $result = $db->query($query);
-      // if(!$result) {
-      //   echo "Could not get dentists.";
-      //   exit;
-      // } else {
-      //   $dateid = $result->fetch_assoc();
-      // }
-
       $dateid;
       
       if(isset($_GET['date'])){
@@ -218,34 +208,29 @@
           <div class="appt-time">
             <?php
               if(isset($_GET['date'])){
-                $year = substr($_GET['date'], 0, 4);
-                $date = substr($_GET['date'], -2);
-                $monthNum = substr($_GET['date'], 5, 2);
-                $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
-                // $dt = strtotime($date.'/'.$monthNum.'/'.$year);
-                $day = date('l', strtotime($_GET['date']));
-                echo '<p style="margin: 45px 0 0 30px; font-weight: bold; color: white;">'.$day.', '.$monthName.' '.$date.'</p>';
+                $date_str = date("l, d F Y", strtotime($_GET['date']));
+                echo '<p style="margin: 45px 0 0 30px; font-weight: bold; color: white;">'.$date_str.'</p>';
               }
             ?>
             <form action='../confirmation/confirmation.php' method='POST'>
               <div class="time-display">
                 <?php
-                if(isset($_GET['date']) && isset($dateid) && isset($dentistid)){
-                  echo "<input type='hidden' name='dentistid' value='".$dentistid."'>";
-                  echo "<input type='hidden' name='dateid' value='".$dateid."'>";
-                  echo '<p style="color: white; margin-left: 10px;">Please select a timing below</p>';
-                }
-              ?>
-                <?php
-                for ($i = 0; $i < count($time_str); $i++) {
-                    // echo "<input type=\"button\" name=\"\" value=\"".date("h:iA", $time)."\">";
-                    echo "<input type=\"radio\" checked=\"checked\" name=\"radio\" value='".$time_str_ids[$i]."'>";
-                    echo "<label class=\"time-radio\">".date("h:iA", $time_str[$i])."</label>";
-                    echo "<br>";
+                  if(isset($_GET['date']) && isset($dateid) && isset($dentistid)){
+                    echo "<input type='hidden' name='dentistid' value='".$dentistid."'>";
+                    echo "<input type='hidden' name='dateid' value='".$dateid."'>";
+                    echo '<p style="color: white; margin-left: 10px;">Please select a timing below</p>';
                   }
                 ?>
+                <?php
+                  for ($i = 0; $i < count($time_str); $i++) {
+                      // echo "<input type=\"button\" name=\"\" value=\"".date("h:iA", $time)."\">";
+                      echo "<input type=\"radio\" checked=\"checked\" name=\"radio\" value='".$time_str_ids[$i]."'>";
+                      echo "<label class=\"time-radio\">".date("h:iA", $time_str[$i])."</label>";
+                      echo "<br>";
+                    }
+                ?>
               </div>
-<?php
+              <?php
                 if(isset($_GET['date'])){
                   if (count($time_str) === 0) echo '<p style="color: white; margin-left: 10px;">There are currently no timings available</p>';
                   echo '<button type="submit" name="book">Book</button>';
@@ -254,8 +239,6 @@
                   echo '<button type="submit" name="book" disabled>Book</button>';
                 }
               ?>
-=======
-              <button type="submit" name="" >Book</button>
             </form>
           </div>
         </div>

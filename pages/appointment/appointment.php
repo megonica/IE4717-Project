@@ -130,6 +130,16 @@
       $time_str = array();
       $time_str_ids = array();
       $dateid;
+      $time_booked = array();
+
+      $query="select timeid from appointment;";
+      $appointments = $db->query($query);
+      $num_appointments = $appointments->num_rows; 
+      
+      for ($i=0; $i <$num_appointments; $i++) { 
+        $appointment = $appointments->fetch_assoc();
+        $time_booked[] =  $appointment['timeid'];
+      }
       
       if(isset($_GET['date'])){
         $query="select date.dateid, time.time_available, time.timeid from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."' AND date.date_available <= DATE(NOW() + INTERVAL 3 MONTH) and date.date_available >= DATE(NOW());";
@@ -139,16 +149,6 @@
           exit;
         } else {
             // verify if timing(s) have been booked
-            $time_booked = array();
-            $query="select timeid from appointment;";
-            $appointments = $db->query($query);
-            $num_appointments = $appointments->num_rows; 
-            
-            for ($i=0; $i <$num_appointments; $i++) { 
-              $appointment = $appointments->fetch_assoc();
-              $time_booked[] =  $appointment['timeid'];
-            }
-            
 
             while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
               if(!in_array($time_avail['time_available'], $time_str) && !in_array($time_avail['timeid'], $time_booked)){

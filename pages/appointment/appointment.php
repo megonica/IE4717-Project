@@ -16,13 +16,13 @@
       }
       .col-left {
         flex: 30%;
-        border: 2px solid;
+        /* border: 2px solid; */
         padding: 25px;
         height: 300px;
       }
       .col-left-img {
         float: left;
-        border: 2px solid;
+        /* border: 2px solid; */
         margin-right: 5px;
       }
       img[alt=Dentist] {
@@ -31,16 +31,17 @@
         object-fit: cover;
       }
       .col-left-top {
-        border: 2px solid;
+        /* border: 2px solid; */
       }
       .col-left-intro {
         float: left;
-        border: 2px solid;
+        /* border: 2px solid; */
       }
       .col-right {
         flex: 70%;
-        border: 2px solid;
+        /* border: 2px solid; */
         padding: 25px;
+        background-color: #4096c6;
       }
       .col-right-content {
         display: flex;
@@ -56,6 +57,32 @@
         .content {   
           flex-direction: column;
         }
+      }
+
+      input[name='back'] {
+        all: unset;
+        width: 200px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 40px;
+        display: block;
+        background-color: #4096c6;
+        text-align: center;
+        color: white;
+      }
+
+      input[name='back']:hover {
+        all: unset;
+        width: 198px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 38px;
+        display: block;
+        background-color: white;
+        text-align: center;
+        color:  #4096c6;
+        cursor: pointer;
+        border: 2px solid #4096c6;
       }
     </style>
     <?php
@@ -158,7 +185,7 @@
   </head>
   <body>
     <?php include '../../components/header.php';?>
-    <div class="content">
+    <div class="content" style="margin-bottom: 10px;">
       <div class="col-left">
         <div class="col-left-img">
           <?php
@@ -174,8 +201,11 @@
         <div class="col-left-intro">
           <?php
             echo "<p>".$row['specialisation']."</p>";
+            echo "<p>".$row['details']."</p>";
           ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper ultricies nunc, vel sollicitudin odio finibus in. Praesent quis velit dolor.</p>
+          <form action="../dentists/dentists.php" method="POST">
+            <input type="submit" name="back" value="Select another dentist">
+          </form>
         </div>
       </div>
       <div class="col-right">

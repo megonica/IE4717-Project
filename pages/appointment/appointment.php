@@ -91,10 +91,6 @@
         echo "</script>";
       } 
 
-      echo "<script>";
-      echo "localStorage.setItem('dentistid', '".$dentistid."');";
-      echo "</script>";
-
       $query="select * from dentist where dentistid=".$dentistid."";
       $result = $db->query($query);
       if(!$result) {
@@ -163,6 +159,7 @@
         $date = substr($dateAndTimeRow['date_available'], -2);
         echo 'sessionStorage.setItem("'.$dateAndTimeRow['date_available'].'", "'.$dateAndTimeRow['date_available'].'");';
       }
+      echo "sessionStorage.setItem('dentistid', '".$dentistid."');";
       echo "</script>";
     ?>
   </head>
@@ -216,7 +213,17 @@
             </div>
           </div>
           <div class="appt-time">
-            <!-- <p style="margin-top: 45px;">Wednesday, April 23</p> -->
+            <?php
+              if(isset($_GET['date'])){
+                $year = substr($_GET['date'], 0, 4);
+                $date = substr($_GET['date'], -2);
+                $monthNum = substr($_GET['date'], 5, 2);
+                $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
+                $dt = strtotime($date.'/'.$monthNum.'/'.$year);
+                $day = date('l', strtotime($_GET['date']));
+                echo '<p style="margin: 45px 0 0 30px; font-weight: bold; color: white;">'.$day.', '.$monthName.' '.$date.'</p>';
+              }
+            ?>
             <form action='../confirmation/confirmation.php' method='POST'>
               <div class="time-display">
                 <?php
@@ -255,7 +262,7 @@
         const month = event.target.getAttribute('data-month');
         const year = event.target.getAttribute('data-year');
         const selectedDate = `${year}-${month}-${value}`;
-        const dentistid = localStorage.getItem('dentistid');
+        const dentistid = sessionStorage.getItem('dentistid');
         location.href = `./appointment.php?dentistid=${dentistid}&date=${selectedDate}`;
       }
     </script>

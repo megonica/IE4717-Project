@@ -245,7 +245,7 @@
                   }
                 ?>
               </div>
-              <?php
+<?php
                 if(isset($_GET['date'])){
                   if (count($time_str) === 0) echo '<p style="color: white; margin-left: 10px;">There are currently no timings available</p>';
                   echo '<button type="submit" name="book">Book</button>';
@@ -254,6 +254,8 @@
                   echo '<button type="submit" name="book" disabled>Book</button>';
                 }
               ?>
+=======
+              <button type="submit" name="" >Book</button>
             </form>
           </div>
         </div>

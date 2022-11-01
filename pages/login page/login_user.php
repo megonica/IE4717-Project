@@ -31,7 +31,20 @@
 
         // book new appointment or reschedule current appointment
         echo "<script>";
-        if(isset($_POST['book'])) echo "location.href='../dentists/dentists.php';";
+        if(isset($_POST['book'])) {
+            $query="select appointmentid from `appointment` where patientid='".$row['patientid']."'";
+            $result = $db->query($query);
+            if(!$result){
+                echo "alert('Failed to verify if user already has an existing appointment.');";
+            }
+
+            $row = $result->fetch_assoc();
+            if($row) {
+                echo "alert('You already have an appointment! Reschedule appointment instead.');";
+                echo "history.back();";
+            }
+            else echo "location.href='../dentists/dentists.php';";
+        }
         else if(isset($_POST['reschedule'])) {
             // verify if appointment for patientid exists
             $query="select appointmentid from `appointment` where patientid='".$row['patientid']."'";

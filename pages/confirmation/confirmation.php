@@ -38,15 +38,68 @@
       exit;
     }
 
+    $patientid = !empty($_SESSION["patientid"]) ? $_SESSION["patientid"] : '';
+    $dentistid = isset($_POST['dentistid']) ? $_POST['dentistid'] : '';
+    $dateid = isset($_POST['dateid']) ? $_POST['dateid'] : '';
+    $timeid = isset($_POST['radio']) ? $_POST['radio'] : '';
+
+    if($patientid === '' || $dentistid === '' || $dateid === '' || $timeid === ''){
+      echo "<script>";
+      echo "alert('Please select a date and time!');";
+      echo "history.back();";
+      echo "</script>";
+    }
+
+    $query="select appointmentid from `appointment` where patientid='".$patientid."'";
+    $result = $db->query($query);
+    if(!$result){
+        echo "alert('Failed to verify if user already has an existing appointment.');";
+    }
+    $row = $result->fetch_assoc();
+    if($row) {
+        // reschedule existing appt 
+        $query = "update appointment set dateid = ".$dateid.", timeid = ".$timeid." where patientid = ".$patientid;
+        $result = $db->query($query);
+        if(!$result){
+          echo "alert('Failed to update appointment.');";
+          exit;
+        }
+    }else {
+        // insert new appointment
+        $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
+        $result = $db->query($query);
+        if(!$result){
+          echo "alert('Failed to create new appointment.');";
+          exit;
+        }
+    }
+
+    $query = "select username from patient where patientid=".$patientid."";
+    $result = $db->query($query);
+    $row = $result->fetch_assoc();
+    if(!$result) {
+      echo "Failed to get appointment confirmation data.";
+      exit;
+    }
+
+
+    // get username & email
+    $query = "select username, email from patient where patientid=".$patientid."";
     $patientid = $_SESSION["patientid"];
     // echo $patientid;
 
     // get username
     $query = "select username from patient where patientid=".$patientid;
+    
     $result = $db->query($query);
+    $row = $result->fetch_assoc();
     if(!$result) {
       echo "Could not get username.";
       exit;
+    }
+
+    // get dentist name
+    $query = "select name from appointment, dentist where appointment.patientid = ".$patientid." and dentist.dentistid=appointment.dentistid";
     } else {
       $username = $result->fetch_assoc();
       // echo $username['username'];
@@ -54,10 +107,12 @@
 
     // get dentist name
     $query = "select dentist.name from appointment, dentist where appointment.patientid=".$patientid." and dentist.dentistid=appointment.dentistid";
+
     $result = $db->query($query);
     if(!$result) {
       echo "Could not get dentist name.";
       exit;
+=======
     } else {
       $dentistname = $result->fetch_assoc();
       // echo $dentistname['name'];
@@ -99,7 +154,26 @@
       $email = $result->fetch_assoc();
       // echo $email['email'];
     }
+    $dentistname = $result->fetch_assoc();
 
+    // get date 
+    $query = "select date_available from appointment, `date` where appointment.patientid = ".$patientid." and date.dateid=appointment.dateid";
+    $result = $db->query($query);
+    if(!$result) {
+      echo "Could not get date_available.";
+      exit;
+    }
+    $dateavailable = $result->fetch_assoc();
+
+    // get time
+    $query = "select time_available from appointment, `time` where appointment.patientid = ".$patientid." and time.timeid=appointment.timeid";
+    $result = $db->query($query);
+    if(!$result) {
+      echo "Could not get time_available.";
+      exit;
+    }
+    $timeavailable = $result->fetch_assoc();
+    echo $timeavailable['time_available'];
     ?>
   </head>
   <body>
@@ -107,6 +181,25 @@
     <div class="content">
       <img src="https://images.unsplash.com/photo-1529153856829-f8c6aeee2e48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="celebration">
       <h1>Appointment Confirmation</h1>
+
+      <?php
+        echo "<p>".$row['username'].", your appointment has been confirmed. The details are as follows:</p>";
+        echo "<h3>".$dentistname['name']."</h3>";
+
+        $year = substr($dateavailable['date_available'], 0, 4);
+        $date = substr($dateavailable['date_available'], -2);
+        $monthNum = substr($dateavailable['date_available'], 5, 2);
+        $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
+        $day = date('l', strtotime($dateavailable['date_available']));
+
+        echo "<h3>".$day.", ".$date." ".$monthName." ".$year."</h3>";
+
+        $time = date("h:iA", strtotime($timeavailable['time_available']));
+
+        echo "<h3>".$time."</h3>";
+        echo "<p>A confirmation email has been sent to:</p>";
+        echo "<h3>".$row['email']."</h3>";
+      ?>
       <p>
         <?php 
           echo $username['username'].",";

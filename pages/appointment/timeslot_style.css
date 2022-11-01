@@ -1,10 +1,12 @@
 .appt-time {
-	background: red;
-	min-height: calc(100vh - 174px);
+  background: #4096c6;
+  min-height: calc(100vh - 174px);
 }
 .appt-time form {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  padding: 20px;
 }
 /*.time-display input {
 	cursor: pointer;
@@ -27,32 +29,23 @@
 	text-align: center;
 	color: white;
 }*/
+
 .time-radio {
-	cursor: pointer;
-	position: relative;
-	border: 0px;
-	margin-right: 15px;
-	padding: 10px;
-	background-color: white;
-	text-align: center;
-	color: #4096c6;
-	font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  border: 0px;
+  /* margin-right: 15px;
+  padding: 10px; */
+  margin: 10px;
+  background-color: none;
+  text-align: center;
+  color: white;
+  font-size: 15px;
 }
-.time-radio:hover {
-	cursor: pointer;
-	position: relative;
-	border: 0px;
-	margin-right: 15px;
-	padding: 10px;
-	background: none;
-	border: 2px solid white;
-	text-align: center;
-	color: white;
-	font-size: 15px;
-}
+
 .time-radio input:checked {
-	cursor: pointer;
-	background: black;
+  cursor: pointer;
+  background: black;
 }
 /*.time-radio input {
 	position: absolute;
@@ -60,30 +53,49 @@
 	cursor: pointer;
 }*/
 td {
-	padding-right: 5px;
-	padding-bottom: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
 }
+
+button:disabled:hover,
+button:disabled {
+  all: unset;
+  width: 150px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 40px;
+  display: block;
+  background-color: white;
+  text-align: center;
+  color: #a4cbdf;
+  margin-left: 10px;
+}
+
 button {
-	all: unset;
-	width: 150px;
-	font-weight: bold;
-	font-size: 16px;
-	height: 40px;
-	display: block;
-	background-color: white;
-	text-align: center;
-	color: #4096c6;
+  all: unset;
+  width: 150px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 40px;
+  display: block;
+  background-color: white;
+  text-align: center;
+  color: #4096c6;
+  margin-left: 10px;
+  margin-top: 40px;
 }
 button:hover {
-	all: unset;
-	width: 148px;
-	font-weight: bold;
-	font-size: 16px;
-	height: 38px;
-	display: block;
-	background-color: none;
-	border: 2px solid white;
-	text-align: center;
-	color: white;
-	cursor: pointer;
+  all: unset;
+  width: 148px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 38px;
+  display: block;
+  background-color: none;
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 40px;
 }

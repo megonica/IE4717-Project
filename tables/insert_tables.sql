@@ -15,7 +15,8 @@ dentistid int unsigned not null auto_increment primary key,
 profile char(100) not null,
 name char(50) not null, 
 position char(50) not null, 
-specialisation char(50) not null
+specialisation char(50) not null,
+details char(100) not null
 
 );
 

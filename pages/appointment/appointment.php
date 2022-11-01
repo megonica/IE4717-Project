@@ -222,7 +222,7 @@
                 $date = substr($_GET['date'], -2);
                 $monthNum = substr($_GET['date'], 5, 2);
                 $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
-                $dt = strtotime($date.'/'.$monthNum.'/'.$year);
+                // $dt = strtotime($date.'/'.$monthNum.'/'.$year);
                 $day = date('l', strtotime($_GET['date']));
                 echo '<p style="margin: 45px 0 0 30px; font-weight: bold; color: white;">'.$day.', '.$monthName.' '.$date.'</p>';
               }

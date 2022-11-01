@@ -16,13 +16,13 @@
       }
       .col-left {
         flex: 30%;
-        border: 2px solid;
+        /* border: 2px solid; */
         padding: 25px;
         height: 300px;
       }
       .col-left-img {
         float: left;
-        border: 2px solid;
+        /* border: 2px solid; */
         margin-right: 5px;
       }
       img[alt=Dentist] {
@@ -31,16 +31,17 @@
         object-fit: cover;
       }
       .col-left-top {
-        border: 2px solid;
+        /* border: 2px solid; */
       }
       .col-left-intro {
         float: left;
-        border: 2px solid;
+        /* border: 2px solid; */
       }
       .col-right {
         flex: 70%;
-        border: 2px solid;
+        /* border: 2px solid; */
         padding: 25px;
+        background-color: #4096c6;
       }
       .col-right-content {
         display: flex;
@@ -158,7 +159,7 @@
   </head>
   <body>
     <?php include '../../components/header.php';?>
-    <div class="content">
+    <div class="content" style="margin-bottom: 10px;">
       <div class="col-left">
         <div class="col-left-img">
           <?php
@@ -174,8 +175,8 @@
         <div class="col-left-intro">
           <?php
             echo "<p>".$row['specialisation']."</p>";
+            echo "<p>".$row['details']."</p>";
           ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper ultricies nunc, vel sollicitudin odio finibus in. Praesent quis velit dolor.</p>
         </div>
       </div>
       <div class="col-right">

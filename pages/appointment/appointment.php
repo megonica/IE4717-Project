@@ -101,6 +101,7 @@
 
       // get available time slots
       $time_str = array();
+      $time_str_ids = array();
 
       // $query = "select dateid from date where date.dentistid=".$dentistid." and date.date_available='2022-10-20'";
       // $result = $db->query($query);
@@ -135,6 +136,7 @@
             while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
               if(!in_array($time_avail['time_available'], $time_str) && !in_array($time_avail['timeid'], $time_booked)){
                 $time_str[] = strtotime($time_avail['time_available']);
+                $time_str_ids[] = $time_avail['timeid'];
                 $dateid = $time_avail['dateid'];
               }
             }
@@ -235,10 +237,10 @@
                 }
               ?>
                 <?php
-                  foreach ($time_str as $time) {
+                for ($i = 0; $i < count($time_str); $i++) {
                     // echo "<input type=\"button\" name=\"\" value=\"".date("h:iA", $time)."\">";
-                    echo "<input type=\"radio\" checked=\"checked\" name=\"radio\" value='".date("H:i:s", $time)."'>";
-                    echo "<label class=\"time-radio\">".date("h:iA", $time)."</label>";
+                    echo "<input type=\"radio\" checked=\"checked\" name=\"radio\" value='".$time_str_ids[$i]."'>";
+                    echo "<label class=\"time-radio\">".date("h:iA", $time_str[$i])."</label>";
                     echo "<br>";
                   }
                 ?>

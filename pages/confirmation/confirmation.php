@@ -37,8 +37,28 @@
       echo "</script>";
     }
 
-    // $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
-    // $result = $db->query($query);
+    $query="select appointmentid from `appointment` where patientid='".$patientid."'";
+    $result = $db->query($query);
+    if(!$result){
+        echo "alert('Failed to verify if user already has an existing appointment.');";
+    }
+    $row = $result->fetch_assoc();
+    if($row) {
+        // reschedule and update existing appt 
+        echo "<script>";
+        echo "alert('reschedule!');";
+        echo "</script>";
+
+        // $query = "update appointment set dateid = ".$dateid.", timeid = ".$timeid." where patientid = ".$patientid;
+        // $db->query($query);
+    }else {
+        // insert new appointment
+        echo "<script>";
+        echo "alert('create new appt!');";
+        echo "</script>";
+        // $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
+        // $result = $db->query($query);
+    }
 
     // get username
     $query = "select username from patient where patientid=".$patientid."";

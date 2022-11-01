@@ -41,6 +41,17 @@
         border: 0px;
         margin-right: 25px;
       }
+
+      .col-right button:hover {
+        cursor: pointer;
+        background-color: lightblue;
+        width: 200px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 0px;
+        margin-right: 25px;
+      }
       /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
       @media screen and (max-width: 700px) {
         .content {   

@@ -58,6 +58,32 @@
           flex-direction: column;
         }
       }
+
+      input[name='back'] {
+        all: unset;
+        width: 200px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 40px;
+        display: block;
+        background-color: #4096c6;
+        text-align: center;
+        color: white;
+      }
+
+      input[name='back']:hover {
+        all: unset;
+        width: 198px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 38px;
+        display: block;
+        background-color: white;
+        text-align: center;
+        color:  #4096c6;
+        cursor: pointer;
+        border: 2px solid #4096c6;
+      }
     </style>
     <?php
       $dentistid;
@@ -177,6 +203,9 @@
             echo "<p>".$row['specialisation']."</p>";
             echo "<p>".$row['details']."</p>";
           ?>
+          <form action="../dentists/dentists.php" method="POST">
+            <input type="submit" name="back" value="Select another dentist">
+          </form>
         </div>
       </div>
       <div class="col-right">

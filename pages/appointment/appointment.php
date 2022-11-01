@@ -82,7 +82,7 @@
         // book from dentists.php
         $dentistid = $_POST['dentistid'];
       } else if(isset($_GET['dentistid'])){
-        // book from dentists.php
+        // selected available date on calendar
         $dentistid = $_GET['dentistid'];
       } else {
         echo "<script>";
@@ -130,9 +130,10 @@
               $appointment = $appointments->fetch_assoc();
               $time_booked[] =  $appointment['timeid'];
             }
+            
 
             while($time_avail = $result->fetch_array(MYSQLI_ASSOC)) {
-              if(!in_array($time_avail['time_available'], $time_str)){
+              if(!in_array($time_avail['time_available'], $time_str) && !in_array($time_avail['timeid'], $time_booked)){
                 $time_str[] = strtotime($time_avail['time_available']);
                 $dateid = $time_avail['dateid'];
               }
@@ -227,7 +228,7 @@
             <form action='../confirmation/confirmation.php' method='POST'>
               <div class="time-display">
                 <?php
-                if(isset($_GET['date'])){
+                if(isset($_GET['date']) && isset($dateid) && isset($dentistid)){
                   echo "<input type='hidden' name='dentistid' value='".$dentistid."'>";
                   echo "<input type='hidden' name='dateid' value='".$dateid."'>";
                   echo '<p style="color: white; margin-left: 10px;">Please select a timing below</p>';
@@ -244,6 +245,7 @@
               </div>
               <?php
                 if(isset($_GET['date'])){
+                  if (count($time_str) === 0) echo '<p style="color: white; margin-left: 10px;">There are currently no timings available</p>';
                   echo '<button type="submit" name="book">Book</button>';
                 }else {
                   echo '<p style="color: white; margin-left: 10px;">Please select a date on the calendar</p>';

@@ -37,8 +37,8 @@
       echo "</script>";
     }
 
-    $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
-    $result = $db->query($query);
+    // $query = "insert into appointment(patientid, dentistid, dateid, timeid) values (".$patientid.", ".$dentistid.", ".$dateid.", ".$timeid.")";
+    // $result = $db->query($query);
 
     // get username
     $query = "select username from patient where patientid=".$patientid."";

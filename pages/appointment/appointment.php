@@ -115,7 +115,7 @@
       $dateid;
       
       if(isset($_GET['date'])){
-        $query="select date.dateid, time.time_available, time.timeid from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."';";
+        $query="select date.dateid, time.time_available, time.timeid from date INNER JOIN time ON date.dateid = time.dateid WHERE date.date_available = '".$_GET['date']."' AND date.date_available <= DATE(NOW() + INTERVAL 3 MONTH) and date.date_available >= DATE(NOW());";
         $result = $db->query($query);
         if(!$result) {
           echo "Could not get timings available.";
@@ -147,7 +147,7 @@
       
 
       // get date available
-      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = ".$dentistid.";";
+      $query="select date.date_available, time.time_available FROM dentist INNER JOIN date ON dentist.dentistid = date.dentistid INNER JOIN time ON date.dateid = time.dateid WHERE dentist.dentistid = ".$dentistid." and date.date_available <= DATE(NOW() + INTERVAL 3 MONTH) and date.date_available >= DATE(NOW());";
       $result = $db->query($query);
       if(!$result) {
         echo "Could not get selected dentist's dates and time available.";

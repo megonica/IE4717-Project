@@ -172,11 +172,11 @@
       Time: ".$time_avail_str."
       Should you wish to reschedule, you can do so by logging in to your account. 
       Thank you for booking with Best Smile Dental Clinic Online Booking System.";
-      $headers = 'From: f32ee@localhost' . "\r\n" .
-        'Reply-To: f32ee@localhost' . "\r\n" .
+      $headers = 'From: '.$email_str. "\r\n" .
+        'Reply-To: '.$email_str. "\r\n" .
         'X-Mailer: PHP/' . phpversion();
-      // mail($to, $subject, $message, $headers, '-ff32ee@localhost');
-      // echo ("mail sent to: ".$to);
+      mail($to, $subject, $message, $headers, '-'.$email_str);
+      // echo ("mail sent to: ".$email_str);
     ?>
   </body>
   <?php }?>
